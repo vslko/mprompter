@@ -1,0 +1,118 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+<link rel="stylesheet" type="text/css" href="./mprompter.css" />
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script type="text/javascript" src="./mprompter.js"></script>
+<script type="text/javascript">
+
+$(document).ready( function(){
+
+	$('#my_search').mPrompter({
+    	query_url	: './server/search.php',
+        item		: '#{id} <b>{name}</b><br><span style="font-size:10px; color:#999;">{note}</span>',
+        value		: '{name}',
+	    onQuery		: function(query) { },
+        onSuccess	: function(data) { },
+        onError		: function(error) { },
+        onSelect	: function(item) { }
+    });
+
+});
+
+</script>
+
+<style type="text/css">
+  body { background-color:#F5F5F5; font-size: 12px; font-family: Tahoma; color: #555; margin: 24px; }
+  .section { background: none repeat scroll 0 0 #FFFFFF; box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1); margin-bottom: 27px; padding: 20px; line-height: 18px; }
+  ul.section { padding-left: 32px; }
+  .section-title { font-size: 20px;line-height: 22px;margin-bottom: 10px;margin-top: 10px;font-weight: normal;}
+  .in-section-title {font-size: 18px;line-height: 20px;margin-bottom: 8px;font-weight: normal;}
+  pre {background-color: #FAFAFA;border: 1px solid #CCCCCC;color: #000000;font-size: 11px;padding: 4px;}
+  a {color: #006096;text-decoration:none;font-weight: bold; }
+  a:hover { text-decaration: underline; }
+  .definition { display: inline-block; font-family: monospace;font-size: 15px;color: #0070A6;}
+  .typization { margin-left: 30px; font-style: italic; }
+  .description {display:block;margin-bottom: 20px; margin-left: 10px;}
+</style>
+
+<head>
+<title>MantellaPrompter</title>
+</head>
+<body>
+
+<div class="section-title">MantellaPrompter demo</div>
+<div class="section">
+	Search: <input type="text" id="my_search" style="width:240px; border:1px solid #ccc; border-radius:5px; padding:3px;" />
+	<div style="margin-left:46px; font-size:11px; color:#aaa;">* find german auto by 3 symbols</div>
+</div>
+
+<div class="section-title">Features</div>
+<ul class="section">
+    <li>Autocomplete tool</li>
+    <li>No excess requests to server</li>
+    <li>Wrap on standart input</li>
+    <li>Results list view definition</li>
+    <li>Definition of field for input</li>
+</ul>
+
+<div class="section-title">Getting started</div>
+<div class="section">
+	<div class="in-section-title">Insert in head</div>
+	<pre>&lt;!-- basic style --&gt;
+&lt;link rel="stylesheet" type="text/css" href="your_path/css/mprompter.css" /&gt;
+&lt;!-- required javascripts --&gt;
+&lt;script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="your_path/js/mprompter.js"&gt;&lt;/script&gt;</pre>
+	<div class="in-section-title">Insert in body</div>
+	<pre>&lt;input type="text" id="my_search" style="width:300px;" /&gt;
+
+&lt;script type="text/javascript"&gt;
+$(document).ready( function(){
+  $('#my_search').mPrompter({
+    query_url	: 'path_to_server_script',
+    item	: '#{id} &lt;b&gt;{name}&lt;/b&gt;&lt;br&gt;{description}',
+    value	: '{name}',
+  });
+});
+&lt;/script&gt;</pre>
+
+</div>
+
+<div class="section-title">Documentation</div>
+<div class="section">
+	<div class="in-section-title">Options</div>
+	<span class="definition">symbols</span><span class="typization">Type: integer, Default: 3</span>
+	<span class="description">Count of entered symbols for request to server</span>
+	<span class="definition">height</span><span class="typization">Type: integer, Default: 200</span>
+	<span class="description">Maximum height for popup list of results.</span>
+	<span class="definition">item</span><span class="typization">Type: string, Default: "{name}"</span>
+	<span class="description">Template to imaging item in list of results. Fields defined as {fieldname}</span>
+	<span class="definition">value</span><span class="typization">Type: string, Default: "{name}"</span>
+	<span class="description">Template to imaging result in input field. Fields defined as {fieldname}</span>
+	<span class="definition">query_url</span><span class="typization">Type: string, Default: "./search.php"</span>
+	<span class="description">URL of server-side script, which returns resut in JSON format</span>
+	<span class="definition">query_param</span><span class="typization">Type: string, Default: "q"</span>
+	<span class="description">Name of variable in search request.</span>
+	<span class="definition">params</span><span class="typization">Type: object, Default: {}</span>
+	<span class="description">Additional your parameters for request to server.</span>
+
+	<div class="in-section-title">Methods</div>
+	<span class="description">no methods</span>
+
+	<div class="in-section-title">Events</div>
+	<span class="definition">onQuery( params:object )</span>
+	<span class="description">Triggered in mPrompter before request to server, contains object of sended parameters</span>
+	<span class="definition">onSuccess( message:string, data:array of objects )</span>
+	<span class="description">Triggered on succesfull query, contains message and array of founded by query items from server responce</span>
+	<span class="definition">onError( message:string )
+	<span class="description">Triggered on failed query, contains message about error</span>
+	<span class="definition">onSelect( item:object )</span>
+	<span class="description">Triggered when is selectes item from popup list, contains this item</span>
+</div>
+
+</body>
+</html>
+
